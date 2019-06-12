@@ -16,7 +16,9 @@ docker-compose up -d
 
 # Magento setup and Sample Data
 
-NOTE SETUP data removed - too big for github : magento-sample-data-1.9.2.4-2016-10-11-07-38-13.tar.gz
+NOTE SAMPLE data removed, download from https://magento.com/tech-resources/download
+
+magento-sample-data-1.9.2.4-2016-10-11-07-38-13.tar.gz
 
 docker exec -it docker-magento1-php7_php-apache_1 install-sampledata
 
