@@ -1,0 +1,4 @@
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+* * * * * /var/www/dev/magento/cron.sh cron.php -mdefault
+* * * * * /var/www/dev/magento/cron.sh cron.php -malways

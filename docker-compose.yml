@@ -1,0 +1,48 @@
+# MAGENTO1 DOCKER
+# PHP7/APACHE PHUSION container
+#
+version: "3.1"
+
+services:
+    php-apache:
+        build:
+            context: ./ubuntu/
+            args:
+                 SMTP: "${SMTP}"
+                 APPDOMAIN: "${APPDOMAIN}"
+        hostname: magento1
+        domainname: "${APPDOMAIN}"
+        ports:
+            - "80:80"
+            - "3000:3000"
+            - "3001:3001"
+        volumes:
+            - "${CONTAINERDATA}/${PROJECT_NAME}/data:/home/data"
+            #- "${CONTAINERDATA}/${PROJECT_NAME}/dev1/www:/var/www"
+            #- "${CONTAINERDATA}/${PROJECT_NAME}/logs:/var/www/logs"
+        networks:
+            - database
+            - wwwserver
+        depends_on:
+            - mysql
+        env_file: .env
+    mysql:
+        image: mysql:5.7
+        hostname: mysql
+        domainname: "${APPDOMAIN}"
+        volumes:
+            #- "${CONTAINERDATA}/${PROJECT_NAME}/mysql/dev1:/var/lib/mysql"
+            - "${CONTAINERDATA}/${PROJECT_NAME}/data:/home/data"
+        networks:
+            - database
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+            MYSQL_DATABASE: "${MYSQL_DATABASE}"
+            MYSQL_USER: "${MYSQL_USER}"
+            MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+networks:
+    database:
+    wwwserver:
+    #proxy_server:
+    #  external: true
